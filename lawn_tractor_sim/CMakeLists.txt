@@ -10,7 +10,10 @@ project(lawn_tractor_sim)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  roslib
+  actionlib
   visualization_msgs
+  move_base_msgs
 )
 
 ## System dependencies are found with CMake's conventions

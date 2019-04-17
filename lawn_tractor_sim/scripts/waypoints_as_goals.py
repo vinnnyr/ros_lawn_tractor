@@ -10,8 +10,11 @@ An action client which demonstrates the publishing of goals
 to move_base.
 
 """
-
 from __future__ import print_function
+
+WAYPOINT_FILE = '/home/bill'
+WAYPOINT_FILE += '/projects/ros-agriculture/catkin_ws/src/ros_lawn_tractor/lawn_tractor_sim'
+WAYPOINT_FILE += '/generated_points.txt'
 
 import roslib
 roslib.load_manifest('lawn_tractor_sim')
@@ -36,12 +39,13 @@ def goal_feedback(feedback):
     y = feedback.base_position.pose.position.y
     theta = feedback.base_position.pose.orientation.w
     current_state = client.get_state()
-    rospy.loginfo('Feedback: %d: %f, %f, %f, %d',
-                  timestamp,
-                  x,
-                  y,
-                  theta,
-                  current_state)
+    rospy.logdebug(
+        'Feedback: %d: %f, %f, %f, %d',
+        timestamp,
+        x,
+        y,
+        theta,
+        current_state)
 
 
 def move_base_client(x, y):
@@ -66,14 +70,25 @@ def move_base_client(x, y):
     if client.wait_for_result(timeout=rospy.Duration(10.0)):
         rospy.loginfo('Goal reached')
     else:
-        rospy.logwarn('wait_for_result() returned False, cancelling goal')
+        rospy.logwarn('Timeout waiting to reach waypoint.' +
+                      'Cancelling goal, proceeding to next goal')
         client.cancel_goal()
 
     return
 
 if __name__ == '__main__':
     rospy.init_node('waypoints_as_goals')
-    for position in [(12.0, 2.0), (2.0, 12.0), (5.0, 5.0), (20.0, 20.0)]:
-        rospy.loginfo('Moving to (%f, %f)', position[0], position[1])
-        move_base_client(position[0], position[1])
-        rospy.loginfo('Done')
+    with open(WAYPOINT_FILE, 'r') as waypoints:
+        while True:
+            waypoint = waypoints.readline()
+            if not waypoint:
+                break
+            fields = waypoint[:-1].split(' ')
+            x = float(fields[0])
+            y = float(fields[1])
+            theta = float(fields[2])
+            speed = float(fields[3])
+    
+            rospy.loginfo('Moving to (%f, %f)', x, y)
+            move_base_client(x, y)
+            rospy.loginfo('Done')
