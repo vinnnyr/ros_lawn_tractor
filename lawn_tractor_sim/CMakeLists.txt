@@ -203,4 +203,6 @@ include_directories(
 
 
 add_executable(shapes src/shapes.cpp)
+add_executable(safety src/safety.cpp)
 target_link_libraries(shapes ${catkin_LIBRARIES})
+target_link_libraries(safety ${catkin_LIBRARIES})

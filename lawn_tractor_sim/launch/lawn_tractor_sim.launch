@@ -64,4 +64,10 @@
 
 <!-- ****** Markers ***** -->
 <node name="obstacles" pkg="lawn_tractor_sim" type="shapes" output="screen" />
+
+<!-- ****** Safety Node ***** -->
+<node pkg="lawn_tractor_sim" type="safety" respawn="false" name="safety" output="screen">
+ 	<param name="distance_threshold" value="2.0"/>
+ </node>
+
 </launch>
