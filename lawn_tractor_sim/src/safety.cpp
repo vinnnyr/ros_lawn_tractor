@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include <sensor_msgs/LaserScan.h>
+#include <sensor_msgs/Range.h>
 #include <std_msgs/Float32.h>
 #include <geometry_msgs/Twist.h>
 
@@ -9,18 +9,17 @@ public:
   SafetyNode()
   {
     pub_ = n_.advertise<geometry_msgs::Twist>("cmd_vel_mux/safety", 1);
-    sub_ = n_.subscribe("/scan", 1, &SafetyNode::callback, this);
+    sub_ = n_.subscribe("/ultrasonic", 1, &SafetyNode::callback, this);
   }
 
-  void callback(const sensor_msgs::LaserScan& input)
+  void callback(const sensor_msgs::Range& input)
   {
     float dist_threshold;
     //Get distance threshold paramter
-    n_.param("distance_threshold", dist_threshold, float(2.5));
+    n_.param("distance_threshold", dist_threshold, float(2.5)); // meters
     geometry_msgs::Twist output;
-    //.... do something with the input and generate the output...
-    for(int i =0; i<input.ranges.size(); i++){
-        if (input.ranges.at(i)< dist_threshold ){
+    //If robot is too close, send 0 cmd_vel
+        if (input.range < dist_threshold ){
             output.angular.x = 0;
             output.angular.y = 0;
             output.angular.y = 0;
@@ -30,7 +29,6 @@ public:
             pub_.publish(output);      
         }
     }  
-  }
 
 private:
   ros::NodeHandle n_; 
