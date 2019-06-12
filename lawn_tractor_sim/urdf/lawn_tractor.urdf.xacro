@@ -44,8 +44,21 @@
     </visual>
   </link>
 
+  <!-- define laser link -->
+  <link name="laser">
+    <visual>
+      <origin xyz='0 0 0' rpy='0 0 0' />
+      <geometry>
+        <sphere radius='0.05' />
+      </geometry>
+      <material name='red'>
+        <color rgba='1 0 0 0.5' />
+      </material>
+    </visual>
+  </link>
+
   <!-- define ultrasonic sensor link -->
-  <link name="base_laser_link">
+  <link name="range">
     <visual>
       <origin xyz='0 0 0' rpy='0 0 0' />
       <geometry>
@@ -90,10 +103,17 @@
     <origin xyz="1.5 0 0.5" rpy="${-pi/2} 0 ${-pi/2}" />
   </joint>
 
+<!-- define laser joint -->
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser"/>
+    <origin xyz="1.5 0 0.5" rpy="0 0 0" />
+  </joint>
+
   <!-- define ultrasonic sensor joint -->
   <joint name="range_joint" type="fixed">
     <parent link="base_link"/>
-    <child link="base_laser_link"/>
+    <child link="range"/>
     <origin xyz="1.5 0 0.75" rpy="0 0 0" />
   </joint>
 </robot>

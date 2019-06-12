@@ -2,16 +2,15 @@ define ultra_front ranger
 (
   sensor
   (
-    range_max 10.0
+    range_max 30.0
     range_min 0.25
-    fov 60.0
-    samples 4
+    fov 180.0
+    samples 180
   )
   # generic model properties
   color "black"
   size [ 0.06 0.15 0.03 ]
 )
-
 
 define tractor position
 (
@@ -28,5 +27,5 @@ define tractor position
   color "gray"
 
   # sonar( pose [ 0 0 -0.03 0 ] )
-  ultra_front (pose [ -0.1 0.0 -0.11 0.0 ])
+  ultra_front (pose [ 0.0 0.0 0.0 0.0 ])
 )
