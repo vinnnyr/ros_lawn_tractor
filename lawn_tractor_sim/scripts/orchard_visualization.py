@@ -27,7 +27,6 @@ class OrchardVis():
         marker_count = 0
 
         for m in marker_list:
-            marker_count += 1
             marker = Marker()
             marker.header.frame_id = "map"
             marker.id = marker_count
@@ -49,9 +48,8 @@ class OrchardVis():
             
 
     def publish_vis(self):
-        rate = rospy.Rate(5)
+        rate = rospy.Rate(1)
         while not rospy.is_shutdown():
-            #print self.marker_vis.markers
             self.vis_pub.publish(self.marker_vis)
             rate.sleep()
         rospy.spin()
