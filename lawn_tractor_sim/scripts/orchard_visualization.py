@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+#
+#  The Construct Video Tutorial on Markers https://www.youtube.com/watch?v=5pGzW-M6iGQ
+#  Tutorial on basic shapes http://wiki.ros.org/rviz/Tutorials/Markers%3A%20Basic%20Shapes
+#  Different shapes you can use http://wiki.ros.org/rviz/DisplayTypes/Marker
+#
+
 import rospy
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
