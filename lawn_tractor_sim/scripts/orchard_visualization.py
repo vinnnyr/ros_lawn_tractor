@@ -27,6 +27,7 @@ class OrchardVis():
         marker_count = 0
 
         for m in marker_list:
+            marker_count += 1
             marker = Marker()
             marker.header.frame_id = "map"
             marker.id = marker_count
