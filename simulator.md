@@ -12,7 +12,7 @@ Docker install instructions - https://docs.docker.com/install/
 #### **Get Start File**
 
 ```
-$ wget https://raw.githubusercontent.com/ros-agriculture/ros_lawn_tractor/master/docker/start.sh
+$ wget https://raw.githubusercontent.com/vinnnyr/ros_lawn_tractor/vinny-experimental/docker/start.sh
 ```
 ```
 $ sudo chmod +x start.sh
