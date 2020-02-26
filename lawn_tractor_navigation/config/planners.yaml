@@ -1,7 +1,8 @@
 planners:
   - name: 'GlobalPlanner'
     type: 'global_planner/GlobalPlanner'
-planner_patience: 10.0
+planner_patience: 5.0
+planner_frequency: 1.0
 GlobalPlanner:
   allow_unknown: false
   default_tolerance: 0.0
@@ -10,6 +11,3 @@ GlobalPlanner:
   use_quadratic: false
   use_grid_path: false
   old_navfn_behaviour: false
-  lethal_cost: 253
-  neutral_cost: 66
-  cost_factor: 0.55
