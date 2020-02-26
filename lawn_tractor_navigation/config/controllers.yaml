@@ -1,0 +1,9 @@
+controllers:
+    - name: 'TebLocalPlannerROS'
+      type: 'teb_local_planner/TebLocalPlannerROS'
+controller:
+  holonomic_robot: false
+
+mbf_tolerance_check: true
+dist_tolerance: 0.2
+angle_tolerance: 1.5
