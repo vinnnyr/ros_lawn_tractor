@@ -37,7 +37,7 @@ def main():
             'WAIT_FOR_GOAL',
             smach_ros.MonitorState(
                 '/move_base_simple/goal',
-                PoseStamped,
+                Path,
                 goal_cb,
                 output_keys=['goal']
             ),
