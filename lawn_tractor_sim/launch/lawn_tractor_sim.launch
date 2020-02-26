@@ -41,11 +41,11 @@
     but trying to remap topic names for both Rviz 
     and hybrid a star such that we can re use 
     hardcoded topic names -->
-    <remap from="/move_base_simple/start" to="/odom"/>
+    <remap from="/move_base_simple/start" to="/pose_estimate"/>
     <remap from="/move_base_simple/goal" to="rviz/goal"/>
     <remap from="/sPath" to="move_base_simple/goal" />
   </node>
-
+<node name="odom_to_pose_estimate" pkg="lawn_tractor_navigation" type="odom_to_pose_estimate.py" output="screen" />
 <!-- ****** Maps ***** -->
 <node name="map_server" pkg="map_server" type="map_server"
 		 args="$(find lawn_tractor_sim)/maps/farm.yaml" output="screen">
