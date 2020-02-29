@@ -3,9 +3,9 @@
 import rospy
 from std_msgs.msg import String
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import PoseStamped,PoseWithCovariance
+from geometry_msgs.msg import PoseWithCovarianceStamped
 
-pub = rospy.Publisher('/pose_estimate', PoseStamped, queue_size=10)
+pub = rospy.Publisher('/pose_estimate', PoseWithCovarianceStamped, queue_size=10)
 
 def converter():
     rospy.init_node('odom_to_pose', anonymous=True)
@@ -15,12 +15,12 @@ def converter():
         rate.sleep()
 
 def odomCallback(data):
-    #unpack the odometry msg and send out the 
+    #unpack the odometry msg and send out the pose estimate 
     odomMsg = data
-    poseStampedOut = PoseStamped()
-    poseStampedOut.header = odomMsg.header
-    poseStampedOut.pose = odomMsg.pose.pose
-    pub.publish(poseStampedOut)
+    poseOut = PoseWithCovarianceStamped()
+    poseOut.header = odomMsg.header
+    poseOut.pose = odomMsg.pose
+    pub.publish(poseOut)
     
 
 
