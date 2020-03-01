@@ -36,7 +36,7 @@ def main():
         smach.StateMachine.add(
             'WAIT_FOR_GOAL',
             smach_ros.MonitorState(
-                '/move_base_simple/goal',
+                '/hybrid_astar/goalPathUnpacked',
                 Path,
                 goal_cb,
                 output_keys=['goal']
