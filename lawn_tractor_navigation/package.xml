@@ -40,7 +40,6 @@
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <mbf_costmap_core plugin="${prefix}/mbf_plugin.xml" />  
     <!-- Other tools can request additional information be placed here -->
 
   </export>

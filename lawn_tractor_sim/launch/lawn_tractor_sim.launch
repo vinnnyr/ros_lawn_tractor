@@ -36,32 +36,36 @@
 		 command="load" />
   </node>
   <node pkg="lawn_tractor_navigation" name="mbf_state_machine" type="mbf_state_machine.py" respawn="false" output="screen"/>
-  <node pkg="lawn_tractor_navigation" name="path_unpacker" type="path_unpacker.py" respawn="false" output="screen"/>
-  <node name="hybrid_astar_global_MBF" pkg="hybrid_astar" type="hybrid_astar" respawn="true" > 
+  <!-- <node pkg="lawn_tractor_navigation" name="path_unpacker" type="path_unpacker.py" respawn="false" output="screen"/> -->
+  <node name="hybrid_astar_global_MBF" pkg="hybrid_astar" type="hybrid_astar" respawn="true"> 
     <!-- I know these remappings are complicated, 
     but trying to remap topic names for both Rviz 
     and hybrid a star such that we can re use 
     hardcoded topic names -->
-    <remap from="/initialpose" to="/pose_estimate" />
+    <param name="/use_sim_time" value="1"/> 
+    <!-- <remap from="/initialpose" to="/pose_estimate" />
     <remap from="/move_base_simple/goal" to="/rviz/goal"/>
-    <remap from="/sPath" to="/hybrid_astar/goalPath" />
+    <remap from="/sPath" to="/hybrid_astar/goalPath" /> -->
   </node>
 <node name="odom_to_pose_estimate" pkg="lawn_tractor_navigation" type="odom_to_pose_estimate.py" output="screen" />
 <!-- ****** Maps ***** -->
 <node name="map_server" pkg="map_server" type="map_server"
 		 args="$(find lawn_tractor_sim)/maps/farm.yaml" output="screen">
+  <param name="/use_sim_time" value="1"/> 
+  <!-- https://answers.ros.org/question/12169/roscpp-using-simulated-time/ -->
 	<param name="frame_id" value="map"/>
 </node>
 
 <!-- ****** Fake localization for map and gps ***** -->
 <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.0 0 0 0.0 /map /odom 100"/>
 <node pkg="tf" type="static_transform_publisher" name="map_to_utm" args="0.0 0.0 0.0 0 0 0.0 /map /utm 100"/>
+<node pkg="tf" type="static_transform_publisher" name="map_to_path" args="0.0 0.0 0.0 0 0 0.0 /map /path 100"/>
 <node pkg="lawn_tractor_sim" type="odom_to_lla.py" name="odom_to_lla" output="screen"/>
 
 <!-- ****** RVIZ ***** -->
 <node name="tractor_viz" pkg="rviz" type="rviz" output="screen"
      args="-d $(find lawn_tractor_sim)/rviz/tractor_viz.rviz">
-     <remap from="/move_base_simple/goal" to="rviz/goal"/>
+     <!-- <remap from="/move_base_simple/goal" to="rviz/goal"/> -->
 </node>
 
 <!-- ****** Markers ***** -->
