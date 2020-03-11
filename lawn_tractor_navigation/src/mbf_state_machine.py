@@ -29,6 +29,7 @@ def main():
     with sm:
         # Goal callback for state WAIT_FOR_GOAL
         def goal_cb(userdata, msg):
+            rospy.loginfo("recieved path")
             userdata.goal = msg
             return False
 
@@ -37,7 +38,7 @@ def main():
             'WAIT_FOR_GOAL',
             smach_ros.MonitorState(
                 '/hybrid_astar/goalPathUnpacked',
-                Path,
+                PoseStamped,
                 goal_cb,
                 output_keys=['goal']
             ),

@@ -36,7 +36,7 @@
 		 command="load" />
   </node>
   <node pkg="lawn_tractor_navigation" name="mbf_state_machine" type="mbf_state_machine.py" respawn="false" output="screen"/>
-  <!-- <node pkg="lawn_tractor_navigation" name="path_unpacker" type="path_unpacker.py" respawn="false" output="screen"/> -->
+  <node pkg="lawn_tractor_navigation" name="path_unpacker" type="path_unpacker.py" respawn="false" output="screen"/>
   <node name="hybrid_astar_global_MBF" pkg="hybrid_astar" type="hybrid_astar" respawn="true"> 
     <!-- I know these remappings are complicated, 
     but trying to remap topic names for both Rviz 
@@ -65,7 +65,7 @@
 <!-- ****** RVIZ ***** -->
 <node name="tractor_viz" pkg="rviz" type="rviz" output="screen"
      args="-d $(find lawn_tractor_sim)/rviz/tractor_viz.rviz">
-     <!-- <remap from="/move_base_simple/goal" to="rviz/goal"/> -->
+     <remap from="/move_base_simple/goal" to="goalpose"/>
 </node>
 
 <!-- ****** Markers ***** -->
