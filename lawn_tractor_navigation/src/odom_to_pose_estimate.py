@@ -5,22 +5,19 @@ from std_msgs.msg import String, Bool
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import PoseWithCovarianceStamped
 
-pub = rospy.Publisher('/pose_estimate', PoseWithCovarianceStamped, queue_size=10)
+pub = rospy.Publisher('/initialpose', PoseWithCovarianceStamped, queue_size=10)
 
 class ROS_NODE():
     def __init__(self):
         rospy.init_node('odom_to_pose', anonymous=True)
         sub = rospy.Subscriber("/odom",Odometry,self.odomCallback)
-        boolSub = rospy.Subscriber('/hybrid_astar/isPathRecieved',Bool,self.boolCallback)
         rate = rospy.Rate(1.0) # 10hz
-        self.shouldPub = False
-        self.firstTime = True
         while not rospy.is_shutdown():
-            if self.shouldPub:
+            try:
                 pub.publish(self.poseOut)
+            except AttributeError:
+                rate.sleep()
             rate.sleep()
-    def boolCallback(self,data):
-        self.shouldPub = not data
     def odomCallback(self,data):
         #unpack the odometry msg and send out the pose estimate 
         odomMsg = data
@@ -28,20 +25,7 @@ class ROS_NODE():
         poseOut.header = odomMsg.header
         poseOut.header.frame_id = "map"
         poseOut.pose = odomMsg.pose
-        if self.firstTime:
-            self.poseOut = poseOut
-            self.shouldPub = True
-        elif self.poseOut.pose.x == poseOut.pose.x & self.poseOut.pose.y == poseOut.pose.y:
-            self.shouldPub = False
-        else:
-            rospy.loginfo["new pose being sent"]
-            self.poseOut = poseOut
-            self.shouldPub = True
-
-
-    
-
-
+        self.poseOut = poseOut
 
 if __name__ == '__main__':
     try:
