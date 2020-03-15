@@ -18,7 +18,7 @@ class PathUnpacker():
         self.boolPub.publish(self.isPathRecieved)
     
     def run(self):
-        rate = rospy.Rate(10) # 10hz
+        rate = rospy.Rate(.1)
         while not rospy.is_shutdown():
             rate.sleep()
     

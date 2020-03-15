@@ -26,6 +26,7 @@ class ROS_NODE():
         odomMsg = data
         poseOut = PoseWithCovarianceStamped()
         poseOut.header = odomMsg.header
+        poseOut.header.frame_id = "map"
         poseOut.pose = odomMsg.pose
         if self.firstTime:
             self.poseOut = poseOut

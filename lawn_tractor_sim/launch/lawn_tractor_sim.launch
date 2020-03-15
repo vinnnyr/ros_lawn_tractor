@@ -37,7 +37,7 @@
   </node>
   <node pkg="lawn_tractor_navigation" name="mbf_state_machine" type="mbf_state_machine.py" respawn="false" output="screen"/>
   <node pkg="lawn_tractor_navigation" name="path_unpacker" type="path_unpacker.py" respawn="false" output="screen"/>
-  <node name="hybrid_astar_global_MBF" pkg="hybrid_astar" type="hybrid_astar" respawn="true"> 
+  <node name="hybrid_astar_global_MBF" pkg="hybrid_astar" type="hybrid_astar" respawn="true" launch-prefix="xterm -e gdb --args"> 
     <!-- I know these remappings are complicated, 
     but trying to remap topic names for both Rviz 
     and hybrid a star such that we can re use 
