@@ -65,7 +65,7 @@
 <!-- ****** RVIZ ***** -->
 <node name="tractor_viz" pkg="rviz" type="rviz" output="screen"
      args="-d $(find lawn_tractor_sim)/rviz/tractor_viz.rviz">
-     <remap from="/move_base_simple/goal" to="goalpose"/>
+     <!-- <remap from="/move_base_simple/goal" to="goalpose"/> -->
 </node>
 
 <!-- ****** Markers ***** -->
